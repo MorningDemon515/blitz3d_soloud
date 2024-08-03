@@ -27,6 +27,6 @@ public:
   static std::string* Content;
 };
 
-static std::vector<BBStr*> ErrorLog;
+static std::vector<const char*> ErrorLog;
 
 #endif

@@ -52,11 +52,11 @@ static void _cdecl seTranslator( unsigned int u,EXCEPTION_POINTERS* pExp ){
 			{
 				if(!ErrorCheck::Content[i].empty())
 				{
-					s = s+ErrorCheck::Content[i]+"\n"
+					s = s+ErrorCheck::Content[i]+"\n";
 				}
 			}
-
-			bbruntime_panic( "Memory access violation:" + s.c_str() );
+            string err = "Memory access violation:" + s;
+			bbruntime_panic( err.c_str() );
 		}
 
 	case EXCEPTION_ILLEGAL_INSTRUCTION:
