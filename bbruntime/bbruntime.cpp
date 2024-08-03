@@ -2,6 +2,9 @@
 #include "bbsys.h"
 #include "bbruntime.h"
 
+int ErrorCheck::Size = 0;
+std::string* ErrorCheck::Content = NULL;
+
 void bbEnd()
 {
     RTEX(0);
@@ -29,6 +32,19 @@ void bbRuntimeError(BBStr* str)
     static char err[256];
     strcpy(err, t.c_str());
     RTEX(err);
+}
+
+void bbSetErrorCheck(int pos,BBStr* str)
+{
+  delete[] ErrorCheck::Content;
+	ErrorCheck::Content = new std::string[pos];
+	ErrorCheck::Size = pos;
+
+  if (ErrorCheck::Content != 0 && pos < ErrorCheck::Size) {
+		ErrorCheck::Content[pos] = *str;
+	}
+  
+	delete str;
 }
 
 int bbExecFile(BBStr* f)

@@ -42,7 +42,23 @@ static void _cdecl seTranslator( unsigned int u,EXCEPTION_POINTERS* pExp ){
 	case EXCEPTION_INT_DIVIDE_BY_ZERO:
 		bbruntime_panic( "Integer divide by zero" );
 	case EXCEPTION_ACCESS_VIOLATION:
-		bbruntime_panic( "Memory access violation" );
+	  if (ErrorCheck::Size == 0)
+		{
+			bbruntime_panic( "Memory access violation:Unknown reason" );
+		}
+		else{
+			string s = 0;
+			for(int i = 0;i > ErrorCheck::Size;i++)
+			{
+				if(!ErrorCheck::Content[i].empty())
+				{
+					s = s+ErrorCheck::Content[i]+"\n"
+				}
+			}
+
+			bbruntime_panic( "Memory access violation:" + s.c_str() );
+		}
+
 	case EXCEPTION_ILLEGAL_INSTRUCTION:
 		bbruntime_panic( "Illegal instruction" );
 	case EXCEPTION_STACK_OVERFLOW:
