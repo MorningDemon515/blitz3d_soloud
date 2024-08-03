@@ -113,7 +113,7 @@ int MainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct ){
 
 	static HBITMAP toolbmp;
 	static SIZE imgsz,butsz;
-	static UINT toolbuts[]={ 
+	static UINT toolbuts[]={
 		ID_NEW,ID_OPEN,ID_SAVE,ID_CLOSE,ID_SEPARATOR,
 		ID_CUT,ID_COPY,ID_PASTE,ID_SEPARATOR,
 		ID_FIND,ID_SEPARATOR,
@@ -454,12 +454,14 @@ bool MainFrame::save( int n ){
 		insertRecent( t );
 	}
 	//Do backups!
+	/*
 	if( prefs.edit_backup ){
 		for( int k=prefs.edit_backup;k>1;--k ){
 			CopyFile( (t+"_bak"+itoa(k-1)).c_str(),(t+"_bak"+itoa(k)).c_str(),false );
 		}
 		CopyFile( t.c_str(),(t+"_bak1").c_str(),false );
 	}
+	*/
 	int om=ios_base::binary|ios_base::out|ios_base::trunc;
 	ofstream out( t.c_str(),om );
 	if( !out.good() ){
