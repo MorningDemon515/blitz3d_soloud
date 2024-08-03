@@ -18,6 +18,8 @@ add_library(debugger MODULE
 	stdutil.cpp
 	tabber.cpp
 	tabber.h
+                utf8.cpp
+                utf8.h
 	../blitzide/prefs.cpp
 	../blitzide/prefs.h
 )

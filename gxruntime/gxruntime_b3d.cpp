@@ -1,6 +1,7 @@
 #include "std.h"
 #include "gxruntime.h"
 #include "zmouse.h"
+#include "../gxruntime/gxutf8.h"
 
 #ifndef SPI_SETMOUSESPEED
 #define SPI_SETMOUSESPEED 0x71
@@ -639,7 +640,7 @@ bool gxRuntime::execute( const string &cmd_line ){
 void gxRuntime::setTitle( const string &t,const string &e ){
 	app_title=t;
 	app_close=e;
-	SetWindowText( hwnd,app_title.c_str() );
+	SetWindowTextW( hwnd,UTF8::convertToUtf16(app_title).c_str() );
 }
 
 //////////////////

@@ -8,6 +8,8 @@
 
 #include "gxdevice.h"
 
+#include <vector>
+
 class gxRuntime;
 
 class gxInput{
@@ -28,6 +30,7 @@ public:
 	void wm_mouseup( int key );
 	void wm_mousemove( int x,int y );
 	void wm_mousewheel( int dz );
+	void wm_char( int wParam, int lParam );
 
 private:
 
@@ -44,6 +47,7 @@ public:
 	gxDevice *getMouse()const;
 	gxDevice *getKeyboard()const;
 	gxDevice *getJoystick( int port )const;
+	std::vector<int> getChars();
 	int getJoystickType( int port )const;
 	int numJoysticks()const;
 	int toAscii( int key )const;

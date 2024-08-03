@@ -12,6 +12,8 @@ set(SRCS
 	gxfilesystem.h
 	gxtimer.cpp
 	gxtimer.h
+                gxutf8.cpp
+                gxutf8.h
 	std.cpp
 	std.h
 )

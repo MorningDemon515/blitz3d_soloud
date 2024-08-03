@@ -1,6 +1,7 @@
 
 #include "std.h"
 #include "bbsys.h"
+#include "../gxruntime/gxutf8.h"
 
 gxInput *gx_input;
 gxDevice *gx_mouse;
@@ -48,6 +49,25 @@ int bbGetKey(){
 	return gx_input->toAscii( gx_keyboard->getKey() );
 }
 
+BBStr* bbTextInput(BBStr* s) {
+	BBStr t = *s;
+	char tBuf[9];
+	std::vector<int> chars = gx_input->getChars();
+	for (int i=0;i<chars.size();i++) {
+		if (chars[i]==8) { //backspace
+			if (t.size()>0) { UTF8::popBack(t); }
+		} else if (chars[i]==127) {
+			t.clear();	
+		} else if (chars[i]>=32) {
+			int codepointLen = UTF8::encodeCharacter(chars[i], tBuf);
+			tBuf[codepointLen] = '\0';
+			t += tBuf;
+		}
+	}
+	*s = t;
+	return s;
+}
+
 int bbWaitKey(){
 	for(;;){
 		if( !gx_runtime->idle() ) RTEX( 0 );
@@ -59,6 +79,7 @@ int bbWaitKey(){
 }
 
 void bbFlushKeys(){
+	gx_input->getChars();
 	gx_keyboard->flush();
 }
 
@@ -244,6 +265,7 @@ void input_link( void (*rtSym)( const char *sym,void *pc ) ){
 	rtSym( "%KeyHit%key",bbKeyHit );
 	rtSym( "%GetKey",bbGetKey );
 	rtSym( "%WaitKey",bbWaitKey );
+	rtSym( "$TextInput$txt",bbTextInput );
 	rtSym( "FlushKeys",bbFlushKeys );
 
 	rtSym( "%MouseDown%button",bbMouseDown );

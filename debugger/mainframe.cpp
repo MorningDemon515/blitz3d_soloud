@@ -5,6 +5,8 @@
 #include "debuggerapp.h"
 #include "../blitzide/prefs.h"
 
+#include "utf8.h"
+
 #include <fstream>
 
 #define WM_IDLEUPDATECMDUI  0x0363  // wParam == bDisableIfNoHandler
@@ -77,38 +79,38 @@ int MainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct ){
 	toolBar.SetButtons( toolbuts,toolcnt );
 
 	//Tabber
-	tabber.Create( 
+	tabber.Create(
 		WS_VISIBLE|WS_CHILD|
 		TCS_HOTTRACK,
 		CRect( 0,0,0,0 ),this,1 );
 	tabber.SetFont( &prefs.tabsFont );
 
 	//Second tabber
-	tabber2.Create( 
+	tabber2.Create(
 		WS_VISIBLE|WS_CHILD|
 		TCS_HOTTRACK,
 		CRect( 0,0,0,0 ),this,2 );
 	tabber2.SetFont( &prefs.tabsFont );
 
 	//Debug Log
-	debug_log.Create( 
+	debug_log.Create(
 		WS_CHILD|WS_HSCROLL|WS_VSCROLL|
 		ES_NOHIDESEL|ES_MULTILINE|ES_AUTOHSCROLL|ES_AUTOVSCROLL,
 		CRect( 0,0,0,0 ),&tabber,1 );
 	tabber.insert( 0,&debug_log,"Debug log" );
 
 	//Debug trees
-	locals_tree.Create( 
+	locals_tree.Create(
 		WS_VISIBLE|WS_CHILD|
 		TVS_HASLINES|TVS_LINESATROOT|TVS_HASBUTTONS,
 		CRect( 0,0,0,0 ),&tabber2,3 );
 
-	globals_tree.Create( 
+	globals_tree.Create(
 		WS_VISIBLE|WS_CHILD|
 		TVS_HASLINES|TVS_LINESATROOT|TVS_HASBUTTONS,
 		CRect( 0,0,0,0 ),&tabber2,3 );
 
-	consts_tree.Create( 
+	consts_tree.Create(
 		WS_VISIBLE|WS_CHILD|
 		TVS_HASLINES|TVS_LINESATROOT|TVS_HASBUTTONS,
 		CRect( 0,0,0,0 ),&tabber2,3 );
@@ -210,9 +212,9 @@ void MainFrame::debugLeave(){
 
 void MainFrame::debugMsg( const char *msg,bool serious ){
 	if( serious ){
-		::MessageBox( 0,msg,"Runtime Error",MB_OK|MB_ICONWARNING|MB_TOPMOST|MB_SETFOREGROUND );
+		::MessageBoxW( 0,UTF8::convertToUtf16(msg).c_str(),L"Runtime Error",MB_OK|MB_ICONWARNING|MB_TOPMOST|MB_SETFOREGROUND );
 	}else{
-		::MessageBox( 0,msg,"Runtime Message",MB_OK|MB_ICONINFORMATION|MB_TOPMOST|MB_SETFOREGROUND );
+		::MessageBoxW( 0,UTF8::convertToUtf16(msg).c_str(),L"Runtime Message",MB_OK|MB_ICONINFORMATION|MB_TOPMOST|MB_SETFOREGROUND );
 	}
 }
 
