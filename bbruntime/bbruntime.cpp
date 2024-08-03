@@ -5,6 +5,13 @@
 int ErrorCheck::Size = 0;
 std::string* ErrorCheck::Content = NULL;
 
+static inline bool mdebug3d(std::string a){
+	if( debug && !gx_scene ) 
+    RTEX( "3D Graphics mode not set" );
+    std::string e = a+"3D Graphics mode not set";
+    ErrorLog.push_back(e.c_str());
+}
+
 void bbEnd()
 {
     RTEX(0);
@@ -202,6 +209,7 @@ void bbruntime_link(void (*rtSym)(const char* sym, void* pc))
     rtSym("Stop", bbStop);
     rtSym("AppTitle$title$close_prompt=\"\"", bbAppTitle);
     rtSym("RuntimeError$message", bbRuntimeError);
+    rtSym("RuntimeError%pos$message", bbSetErrorCheck);
     rtSym("ExecFile$command", bbExecFile);
     rtSym("Delay%millisecs", bbDelay);
     rtSym("%MilliSecs", bbMilliSecs);

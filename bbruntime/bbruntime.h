@@ -12,6 +12,27 @@ To be statically linked with an appropriate gxruntime driver.
 
 #include "../gxruntime/gxruntime.h"
 
+#include "bbblitz3d.h"
+#include "bbgraphics.h"
+#include "../blitz3d/blitz3d.h"
+#include "../blitz3d/world.h"
+#include "../blitz3d/texture.h"
+#include "../blitz3d/brush.h"
+#include "../blitz3d/camera.h"
+#include "../blitz3d/sprite.h"
+#include "../blitz3d/meshmodel.h"
+#include "../blitz3d/loader_x.h"
+#include "../blitz3d/loader_3ds.h"
+#include "../blitz3d/loader_b3d.h"
+#include "../blitz3d/md2model.h"
+#include "../blitz3d/q3bspmodel.h"
+#include "../blitz3d/meshutil.h"
+#include "../blitz3d/pivot.h"
+#include "../blitz3d/planemodel.h"
+#include "../blitz3d/terrain.h"
+#include "../blitz3d/listener.h"
+#include "../blitz3d/cachedtexture.h"
+
 #include <vector>
 
 void bbruntime_link( void (*rtSym)( const char *sym,void *pc ) );
@@ -28,5 +49,8 @@ public:
 };
 
 static std::vector<const char*> ErrorLog;
+
+static inline bool mdebug3d(std::string a);
+static inline bool mdebugTexture( Texture *t , std::string a );
 
 #endif

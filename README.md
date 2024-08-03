@@ -11,8 +11,10 @@ Then, from a DOS prompt:
 ``` shell
 git clone https://github.com/blitz-research/blitz3d_soloud.git
 cd blitz3d_soloud
-cmake -S . -B cmake-build-release -A Win32 -G "Visual Studio 17 2022"
-cmake --build cmake-build-release --config Release
+mkdir cmake-build
+cd cmake-build
+cmake -G "Visual Studio 17 2022" -A Win32 ..
+cmake --build . --Release 
 ```
 Assuming all went well, the BLITZ3D_INSTALL directory will contain the final binaries, simply run Blitz3D.exe to get blitzing!
 

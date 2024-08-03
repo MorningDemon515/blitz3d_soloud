@@ -22,6 +22,8 @@
 #include "../blitz3d/listener.h"
 #include "../blitz3d/cachedtexture.h"
 
+#include "bbruntime.h"
+
 gxScene *gx_scene;
 extern gxFileSystem *gx_filesys;
 
