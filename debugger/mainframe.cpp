@@ -53,6 +53,12 @@ MainFrame::~MainFrame(){
 int MainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct ){
 	CFrameWnd::OnCreate( lpCreateStruct );
 
+    HICON hIcon = AfxGetApp()->LoadIcon(IDB_ICON);
+    SetIcon(hIcon, TRUE);
+
+    HICON hIconSmall = AfxGetApp()->LoadIcon(IDB_ICON);
+    SetIcon(hIconSmall, FALSE);
+
 	prefs.open();
 
 	string tb=prefs.homeDir+"/cfg/dbg_toolbar.bmp";

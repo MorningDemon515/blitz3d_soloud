@@ -111,6 +111,12 @@ int MainFrame::OnCreate( LPCREATESTRUCT lpCreateStruct ){
 	CFrameWnd::OnCreate( lpCreateStruct );
 	this->DragAcceptFiles();
 
+	HICON hIcon = AfxGetApp()->LoadIcon(IDB_BITMAP1);
+    SetIcon(hIcon, TRUE);
+
+	HICON hIconSmall = AfxGetApp()->LoadIcon(IDB_BITMAP1);
+    SetIcon(hIconSmall, FALSE);
+
 	static HBITMAP toolbmp;
 	static SIZE imgsz,butsz;
 	static UINT toolbuts[]={

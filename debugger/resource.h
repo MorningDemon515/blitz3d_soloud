@@ -10,6 +10,7 @@
 #define ID_STEPOUT                      1005
 #define ID_END                          1006
 #define ID_TRACE                        1007
+#define IDB_ICON                        1008
 
 // Next default values for new objects
 // 
