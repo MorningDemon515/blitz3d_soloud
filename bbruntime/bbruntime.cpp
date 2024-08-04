@@ -47,6 +47,17 @@ void bbSetErrorCheck(int pos,BBStr* str)
 	delete str;
 }
 
+BBStr* bberrorlog()
+{
+    if (ErrorLog.size()==0) 
+    {
+         return d_new BBStr(""); 
+    }
+	BBStr* retVal=d_new BBStr(ErrorLog[0]);
+	ErrorLog.erase(ErrorLog.begin());
+	return retVal;
+}
+
 int bbExecFile(BBStr* f)
 {
     string t = *f;
@@ -202,7 +213,8 @@ void bbruntime_link(void (*rtSym)(const char* sym, void* pc))
     rtSym("Stop", bbStop);
     rtSym("AppTitle$title$close_prompt=\"\"", bbAppTitle);
     rtSym("RuntimeError$message", bbRuntimeError);
-    rtSym("RuntimeError%pos$message", bbSetErrorCheck);
+    rtSym("SetErrorCheck%pos$message", bbSetErrorCheck);
+    rtSym( "$ErrorLog",bberrorlog );
     rtSym("ExecFile$command", bbExecFile);
     rtSym("Delay%millisecs", bbDelay);
     rtSym("%MilliSecs", bbMilliSecs);

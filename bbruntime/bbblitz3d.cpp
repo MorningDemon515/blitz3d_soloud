@@ -57,6 +57,35 @@ static Loader_B3D loader_b3d;
 
 static map<string,Transform> loader_mat_map;
 
+static inline bool edebug3d(std::string a){
+	if( debug && !gx_scene ) 
+	RTEX( "3D Graphics mode not set" );
+	std::string m = a+"3D Graphics mode not set";
+	ErrorLog.push_back(m.c_str());
+}
+
+static inline bool edebugTexture( Texture *t ,std::string a){
+	if( debug && !texture_set.count( t ) ) 
+	RTEX( "Texture does not exist" );
+	std::string m = a+"Texture does not exist";
+	ErrorLog.push_back(m.c_str());
+}
+
+static inline bool edebugBrush( Brush *b ,std::string a){
+	if( debug && !brush_set.count( b ) ) 
+	RTEX( "Brush does not exist" );
+    std::string m = a+"Brush does not exist";
+	ErrorLog.push_back(m.c_str());
+}
+
+static inline bool edebugEntity( Entity *e,std::string a ){
+	if( debug && !entity_set.count(e) ) 
+	RTEX( "Entity does not exist" );
+	std::string m = a+"Entity does not exist";
+	ErrorLog.push_back(m.c_str());
+}
+
+//--------------------------------------------------------------------------------------------------------
 static inline void debug3d(){
 	if( debug && !gx_scene ) RTEX( "3D Graphics mode not set" );
 }
@@ -145,7 +174,7 @@ static inline void debugVertex( Surface *s,int n,int t ){
 		if( t<0 || t>1 ) RTEX( "Texture coordinate set out of range" );
 	}
 }
-
+//--------------------------------------------------------------------------------------------------------------
 static Entity *loadEntity( string t,int hint ){
 	t=tolower(t);
 	int n=t.rfind( "." );if( n==string::npos ) return 0;
@@ -225,7 +254,7 @@ int   bbHWTexUnits(){
 }
 
 int	  bbGfxDriverCaps3D(){
-	debug3d();
+	if(!edebug3d("GfxDriverCaps3D"))return 0;
 	return gx_scene->gfxDriverCaps3D();
 }
 
@@ -245,7 +274,7 @@ void  bbDither( int enable ){
 }
 
 void  bbAntiAlias( int enable ){
-	debug3d();
+	if(!edebug3d("AntiAlias"))return;
 	gx_scene->setAntialias( !!enable );
 }
 
@@ -255,7 +284,7 @@ void  bbWireFrame( int enable ){
 }
 
 void  bbAmbientLight( float r,float g,float b ){
-	debug3d();
+	if(!edebug3d("Ambient Light"))return;
 	Vector t( r*ctof,g*ctof,b*ctof );
 	gx_scene->setAmbient( &(t.x) );
 }
@@ -266,14 +295,14 @@ void  bbClearCollisions(){
 }
 
 void  bbCollisions( int src_type,int dest_type,int method,int response ){
-	debug3d();
+	if(!edebug3d("Collisions"))return;
 	world->addCollision( src_type,dest_type,method,response );
 }
 
 static int update_ms;
 
 void  bbUpdateWorld( float elapsed ){
-	debug3d();
+	if(!edebug3d("Update World"))return;
 
 #ifndef BETA
 	world->update( elapsed );
@@ -286,12 +315,12 @@ void  bbUpdateWorld( float elapsed ){
 }
 
 void  bbCaptureWorld(){
-	debug3d();
+	if(!edebug3d("Capture World"))return;
 	world->capture();
 }
 
 void  bbRenderWorld( float tween ){
-	debug3d();
+	if(!edebug3d("Render World"))return;
 
 #ifndef BETA
 	tri_count=gx_scene->getTrianglesDrawn();
