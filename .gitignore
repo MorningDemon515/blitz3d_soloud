@@ -4,4 +4,6 @@
 cmake-build*
 Blitz3D-V*
 BLITZ3D_RELEASES
+BLITZ3D_INSTALL
+.vscode
 

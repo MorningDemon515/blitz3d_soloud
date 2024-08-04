@@ -5,13 +5,6 @@
 int ErrorCheck::Size = 0;
 std::string* ErrorCheck::Content = NULL;
 
-static inline bool mdebug3d(std::string a){
-	if( debug && !gx_scene ) 
-    RTEX( "3D Graphics mode not set" );
-    std::string e = a+"3D Graphics mode not set";
-    ErrorLog.push_back(e.c_str());
-}
-
 void bbEnd()
 {
     RTEX(0);

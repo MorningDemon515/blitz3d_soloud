@@ -111,6 +111,8 @@ public:
 	//info
 	int getTrianglesDrawn()const;
 
+	DWORD textureLodBias;
+
 private:
 	gxCanvas *target;
 	bool wbuffer,dither,antialias,wireframe,flipped;

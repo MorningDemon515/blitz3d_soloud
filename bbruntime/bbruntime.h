@@ -50,7 +50,4 @@ public:
 
 static std::vector<const char*> ErrorLog;
 
-static inline bool mdebug3d(std::string a);
-static inline bool mdebugTexture( Texture *t , std::string a );
-
 #endif

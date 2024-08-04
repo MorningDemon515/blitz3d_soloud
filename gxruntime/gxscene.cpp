@@ -533,6 +533,7 @@ bool gxScene::begin( const vector<gxLight*> &lights ){
 		setTSS( n,D3DTSS_COLOROP,D3DTOP_DISABLE );
 		setTSS( n,D3DTSS_ALPHAOP,D3DTOP_DISABLE );
 		dir3dDev->SetTexture( n,0 );
+		setTSS( n,D3DTSS_MIPMAPLODBIAS,textureLodBias );
 	}
 
 	//set light states
